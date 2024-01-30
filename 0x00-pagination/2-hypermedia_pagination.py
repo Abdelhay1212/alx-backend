@@ -49,23 +49,21 @@ class Server:
         data = self.get_page(page, page_size)
 
         next_page = None
-        next_page_start = (page - 1) * page_size
-        if next_page_start <= len(self.__dataset):
+        start, end = index_range(page, page_size)
+        if end < len(self.__dataset):
             next_page = page + 1
 
         prev_page = None
-        if page > 1:
+        if start > 0:
             prev_page = page - 1
 
-        total_pages = len(self.__dataset) / page_size
-        if total_pages - math.floor(total_pages) > 0:
-            total_pages = math.floor(total_pages) + 1
+        total_pages = math.ceil(len(self.__dataset) / page_size)
 
         return {
-            'page_size': page_size,
+            'page_size': len(data),
             'page': page,
             'data': data,
             'next_page': next_page,
             'prev_page': prev_page,
-            'total_pages': int(total_pages)
+            'total_pages': total_pages
         }
