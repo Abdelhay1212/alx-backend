@@ -26,6 +26,7 @@ class LRUCache(BaseCaching):
                     if k == key:
                         del self.lru[i]
                 self.lru.append(key)
+                self.cache_data[key] = item
             else:
                 self.lru.append(key)
                 self.cache_data[key] = item
