@@ -24,7 +24,7 @@ class LFUCache(BaseCaching):
                     if v < temp:
                         temp = v
                         less_used = k
-
+                print('DISCARD: {}'.format(less_used))
                 del self.luf[less_used]
                 del self.cache_data[less_used]
 
